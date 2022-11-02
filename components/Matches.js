@@ -24,14 +24,10 @@ const MATCHES_QUERY = gql`
   }
 `;
 
-export default function Matches({
-  id = '83af5c96-fe8d-4f60-a1ea-d89e01a14826',
-  fromDate = '2022-04-03',
-  toDate = '2022-11-02',
-}) {
+export default function Matches({ fromDate = '2022-04-03', toDate = '2022-11-02', participantId }) {
   const { data, loading, error } = useQuery(MATCHES_QUERY, {
     variables: {
-      participantId: id,
+      participantId: participantId,
       fromDate: fromDate,
       toDate: toDate,
     },
@@ -75,6 +71,8 @@ const MatchContainer = styled.div`
   border-radius: 8px;
   width: 100%;
   margin-top: 2rem;
+  overflow: auto;
+  max-height: 920px;
 
   @media (min-width: 992px) {
     margin-top: 0rem;
