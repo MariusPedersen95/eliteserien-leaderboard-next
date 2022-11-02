@@ -49,7 +49,6 @@ export const GlobalStyle = createGlobalStyle`
     margin: 0;
     line-height: inherit;
     text-align: center;
-    padding-bottom: 2rem;
   }
 
   p {
