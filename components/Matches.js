@@ -2,26 +2,67 @@ import React from 'react';
 
 import styled from 'styled-components';
 
-export default function Matches({}) {
+import { useQuery, gql } from '@apollo/client';
+
+const MATCHES_QUERY = gql`
+  query teamMatches($participantId: ID!, $fromDate: LocalDate!, $toDate: LocalDate!) {
+    eventsByParticipantAndDateRange(participantId: $participantId, fromDate: $fromDate, toDate: $toDate) {
+      startDate
+      tournamentStage {
+        name
+      }
+      participants {
+        results {
+          resultType
+          value
+        }
+        participant {
+          name
+        }
+      }
+    }
+  }
+`;
+
+export default function Matches({
+  id = '83af5c96-fe8d-4f60-a1ea-d89e01a14826',
+  fromDate = '2022-04-03',
+  toDate = '2022-11-02',
+}) {
+  const { data, loading, error } = useQuery(MATCHES_QUERY, {
+    variables: {
+      participantId: id,
+      fromDate: fromDate,
+      toDate: toDate,
+    },
+  });
+
+  if (loading) {
+    return <h2>Loading...</h2>;
+  }
+
+  if (error) {
+    console.log(error);
+    return null;
+  }
+
+  const matches = data.eventsByParticipantAndDateRange;
+
+  const filteredMatches = matches.filter((match) => match.tournamentStage.name === 'Eliteserien');
+
   return (
     <MatchContainer>
       <h1>Kamper</h1>
       <ContentContainer>
-        <MatchContent>
-          <Team>Molde</Team>
-          <span>2-0</span>
-          <Team>Bodø/glimt</Team>
-        </MatchContent>
-        <MatchContent>
-          <Team>Molde</Team>
-          <span>2-0</span>
-          <Team>Bodø/glimt</Team>
-        </MatchContent>
-        <MatchContent>
-          <Team>Molde</Team>
-          <span>2-0</span>
-          <Team>Bodø/glimt</Team>
-        </MatchContent>
+        {filteredMatches.map((match) => (
+          <MatchContent key={+1}>
+            <Team>{match.participants[0].participant.name}</Team>
+            <span>
+              {match.participants[0].results[3].value}-{match.participants[1].results[3].value}
+            </span>
+            <Team>{match.participants[1].participant.name}</Team>
+          </MatchContent>
+        ))}
       </ContentContainer>
     </MatchContainer>
   );
