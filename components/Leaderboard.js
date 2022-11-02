@@ -11,6 +11,7 @@ const STANDINGS_QUERY = gql`
       standings(type: LEAGUE_TABLE) {
         participants {
           participant {
+            id
             name
           }
           rank
@@ -24,7 +25,7 @@ const STANDINGS_QUERY = gql`
   }
 `;
 
-export default function Leaderboard({ id = '4e50ba57-d5fe-4370-b2f8-e357ebeb4c83' }) {
+export default function Leaderboard({ id = '4e50ba57-d5fe-4370-b2f8-e357ebeb4c83', onSet }) {
   const { data, loading, error } = useQuery(STANDINGS_QUERY, {
     variables: {
       tournamentStageId: id,
@@ -41,6 +42,9 @@ export default function Leaderboard({ id = '4e50ba57-d5fe-4370-b2f8-e357ebeb4c83
   }
 
   const participants = data.tournamentStage.standings[0].participants;
+
+  console.log(participants);
+
   const dataValue = (dataArr, code) => {
     const item = dataArr.find((item) => item.code === code);
     return item.value;
@@ -64,7 +68,7 @@ export default function Leaderboard({ id = '4e50ba57-d5fe-4370-b2f8-e357ebeb4c83
         </thead>
         <TableBody>
           {participants.map((participant) => (
-            <tr key={participant.participant.name}>
+            <tr onClick={() => onSet(participant.participant.id)} key={participant.participant.id}>
               <td>
                 {participant.rank}.{participant.participant.name}
               </td>
