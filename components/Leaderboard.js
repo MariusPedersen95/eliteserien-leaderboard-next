@@ -171,7 +171,7 @@ const LeaderboardContainer = styled.div`
   background: var(--primary);
   color: var(--white);
   border-radius: 7.88px;
-  margin: 0 auto;
+  margin-right: 15px;
   padding: 2rem 0.5rem 2rem 1.5rem;
 
   @media (min-width: 992px) {
@@ -333,6 +333,6 @@ const StandingsRules = styled.div`
     }
   }
   @media (min-width: 992px) {
-    width: 85%;
+    width: 90%;
   }
 `;
