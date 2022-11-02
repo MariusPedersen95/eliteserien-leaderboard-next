@@ -2,7 +2,50 @@ import React from 'react';
 
 import styled from 'styled-components';
 
-export default function Leaderboard({}) {
+import { useQuery, gql } from '@apollo/client';
+
+const STANDINGS_QUERY = gql`
+  query table($tournamentStageId: ID!) {
+    tournamentStage(id: $tournamentStageId) {
+      name
+      standings(type: LEAGUE_TABLE) {
+        participants {
+          participant {
+            name
+          }
+          rank
+          data {
+            code
+            value
+          }
+        }
+      }
+    }
+  }
+`;
+
+export default function Leaderboard({ id = '4e50ba57-d5fe-4370-b2f8-e357ebeb4c83' }) {
+  const { data, loading, error } = useQuery(STANDINGS_QUERY, {
+    variables: {
+      tournamentStageId: id,
+    },
+  });
+
+  if (loading) {
+    return <h2>Loading...</h2>;
+  }
+
+  if (error) {
+    console.log(error);
+    return null;
+  }
+
+  const participants = data.tournamentStage.standings[0].participants;
+  const dataValue = (dataArr, code) => {
+    const item = dataArr.find((item) => item.code === code);
+    return item.value;
+  };
+
   return (
     <LeaderboardContainer>
       <h1>Standings</h1>
@@ -20,138 +63,26 @@ export default function Leaderboard({}) {
           </tr>
         </thead>
         <TableBody>
-          <tr>
-            <td>1. Molde</td>
-            <StatsTd>28</StatsTd>
-            <StatsTd>10</StatsTd>
-            <StatsTd>11</StatsTd>
-            <StatsTd>1</StatsTd>
-            <GoalsTd>67-23</GoalsTd>
-            <GoalsTd>Diff</GoalsTd>
-            <PoengTd>
-              <PointCircle>72</PointCircle>
-            </PoengTd>
-          </tr>
-          <tr>
-            <td>1. Molde</td>
-            <StatsTd>28</StatsTd>
-            <StatsTd>10</StatsTd>
-            <StatsTd>11</StatsTd>
-            <StatsTd>1</StatsTd>
-            <GoalsTd>67-23</GoalsTd>
-            <GoalsTd>Diff</GoalsTd>
-            <PoengTd>
-              <PointCircle>72</PointCircle>
-            </PoengTd>
-          </tr>
-          <tr>
-            <td>1. Molde</td>
-            <StatsTd>28</StatsTd>
-            <StatsTd>10</StatsTd>
-            <StatsTd>11</StatsTd>
-            <StatsTd>1</StatsTd>
-            <GoalsTd>67-23</GoalsTd>
-            <GoalsTd>Diff</GoalsTd>
-            <PoengTd>
-              <PointCircle>72</PointCircle>
-            </PoengTd>
-          </tr>
-          <tr>
-            <td>1. Molde</td>
-            <StatsTd>28</StatsTd>
-            <StatsTd>10</StatsTd>
-            <StatsTd>11</StatsTd>
-            <StatsTd>1</StatsTd>
-            <GoalsTd>67-23</GoalsTd>
-            <GoalsTd>Diff</GoalsTd>
-            <PoengTd>
-              <PointCircle>72</PointCircle>
-            </PoengTd>
-          </tr>
-          <tr>
-            <td>1. Molde</td>
-            <StatsTd>28</StatsTd>
-            <StatsTd>10</StatsTd>
-            <StatsTd>11</StatsTd>
-            <StatsTd>1</StatsTd>
-            <GoalsTd>67-23</GoalsTd>
-            <GoalsTd>Diff</GoalsTd>
-            <PoengTd>
-              <PointCircle>72</PointCircle>
-            </PoengTd>
-          </tr>
-          <tr>
-            <td>1. Molde</td>
-            <StatsTd>28</StatsTd>
-            <StatsTd>10</StatsTd>
-            <StatsTd>11</StatsTd>
-            <StatsTd>1</StatsTd>
-            <GoalsTd>67-23</GoalsTd>
-            <GoalsTd>Diff</GoalsTd>
-            <PoengTd>
-              <PointCircle>72</PointCircle>
-            </PoengTd>
-          </tr>
-          <tr>
-            <td>1. Molde</td>
-            <StatsTd>28</StatsTd>
-            <StatsTd>10</StatsTd>
-            <StatsTd>11</StatsTd>
-            <StatsTd>1</StatsTd>
-            <GoalsTd>67-23</GoalsTd>
-            <GoalsTd>Diff</GoalsTd>
-            <PoengTd>
-              <PointCircle>72</PointCircle>
-            </PoengTd>
-          </tr>
-          <tr>
-            <td>1. Molde</td>
-            <StatsTd>28</StatsTd>
-            <StatsTd>10</StatsTd>
-            <StatsTd>11</StatsTd>
-            <StatsTd>1</StatsTd>
-            <GoalsTd>67-23</GoalsTd>
-            <GoalsTd>Diff</GoalsTd>
-            <PoengTd>
-              <PointCircle>72</PointCircle>
-            </PoengTd>
-          </tr>
-          <tr>
-            <td>1. Molde</td>
-            <StatsTd>28</StatsTd>
-            <StatsTd>10</StatsTd>
-            <StatsTd>11</StatsTd>
-            <StatsTd>1</StatsTd>
-            <GoalsTd>67-23</GoalsTd>
-            <GoalsTd>Diff</GoalsTd>
-            <PoengTd>
-              <PointCircle>72</PointCircle>
-            </PoengTd>
-          </tr>
-          <tr>
-            <td>1. Molde</td>
-            <StatsTd>28</StatsTd>
-            <StatsTd>10</StatsTd>
-            <StatsTd>11</StatsTd>
-            <StatsTd>1</StatsTd>
-            <GoalsTd>67-23</GoalsTd>
-            <GoalsTd>Diff</GoalsTd>
-            <PoengTd>
-              <PointCircle>72</PointCircle>
-            </PoengTd>
-          </tr>
-          <tr>
-            <td>1. Molde</td>
-            <StatsTd>28</StatsTd>
-            <StatsTd>10</StatsTd>
-            <StatsTd>11</StatsTd>
-            <StatsTd>1</StatsTd>
-            <GoalsTd>67-23</GoalsTd>
-            <GoalsTd>Diff</GoalsTd>
-            <PoengTd>
-              <PointCircle>72</PointCircle>
-            </PoengTd>
-          </tr>
+          {participants.map((participant) => (
+            <tr key={participant.participant.name}>
+              <td>
+                {participant.rank}.{participant.participant.name}
+              </td>
+              <StatsTd>{dataValue(participant.data, 'played')}</StatsTd>
+              <StatsTd>{dataValue(participant.data, 'draws')}</StatsTd>
+              <StatsTd>{dataValue(participant.data, 'played')}</StatsTd>
+              <StatsTd>{dataValue(participant.data, 'defeits')}</StatsTd>
+              <GoalsTd>
+                {dataValue(participant.data, 'goalsfor')}-{dataValue(participant.data, 'goalsagainst')}
+              </GoalsTd>
+              <GoalsTd>
+                {Number(dataValue(participant.data, 'goalsfor')) - Number(dataValue(participant.data, 'goalsagainst'))}
+              </GoalsTd>
+              <PoengTd>
+                <PointCircle>{dataValue(participant.data, 'points')}</PointCircle>
+              </PoengTd>
+            </tr>
+          ))}
         </TableBody>
       </Table>
       <StandingsRules>
