@@ -25,7 +25,7 @@ const STANDINGS_QUERY = gql`
   }
 `;
 
-export default function Leaderboard({ id = '4e50ba57-d5fe-4370-b2f8-e357ebeb4c83', onSet }) {
+export default function Leaderboard({ id = '4e50ba57-d5fe-4370-b2f8-e357ebeb4c83', setParticipantId }) {
   const { data, loading, error } = useQuery(STANDINGS_QUERY, {
     variables: {
       tournamentStageId: id,
@@ -68,7 +68,7 @@ export default function Leaderboard({ id = '4e50ba57-d5fe-4370-b2f8-e357ebeb4c83
         </thead>
         <TableBody>
           {participants.map((participant) => (
-            <tr onClick={() => onSet(participant.participant.id)} key={participant.participant.id}>
+            <tr onClick={() => setParticipantId(participant.participant.id)} key={participant.participant.id}>
               <td>
                 {participant.rank}.{participant.participant.name}
               </td>

@@ -1,13 +1,17 @@
+import react, { useState } from 'react';
+
 import styled from 'styled-components';
 
 import Head from 'next/head';
 
+import ClientOnly from '../components/ClientOnly';
 import Leaderboard from '../components/Leaderboard';
 import Matches from '../components/Matches';
 
 import styles from '../styles/Home.module.css';
 
 export default function Home() {
+  const [participantId, setParticipantId] = useState('83af5c96-fe8d-4f60-a1ea-d89e01a14826');
   return (
     <div className={styles.container}>
       <Head>
@@ -16,10 +20,12 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Main>
-        <Section>
-          <Leaderboard />
-          <Matches />
-        </Section>
+        <ClientOnly>
+          <Section>
+            <Leaderboard setParticipantId={setParticipantId} />
+            <Matches participantId={participantId} />
+          </Section>
+        </ClientOnly>
       </Main>
     </div>
   );
