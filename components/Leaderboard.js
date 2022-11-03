@@ -247,7 +247,7 @@ const StandingsRules = styled.div`
   div {
     display: flex;
     flex-wrap: wrap;
-    align-items: center;
+    align-items: baseline;
     flex-direction: column;
     span {
       flex: 1 0 47%; /* explanation below */
