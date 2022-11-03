@@ -62,7 +62,7 @@ export default function Leaderboard({ id = '4e50ba57-d5fe-4370-b2f8-e357ebeb4c83
             <StatsTh>U</StatsTh>
             <StatsTh>T</StatsTh>
             <GoalsTh>M</GoalsTh>
-            <GoalsTh>D</GoalsTh>
+            <GoalsThAvg>D</GoalsThAvg>
             <PoengTh>Poeng</PoengTh>
           </tr>
         </thead>
@@ -79,9 +79,9 @@ export default function Leaderboard({ id = '4e50ba57-d5fe-4370-b2f8-e357ebeb4c83
               <GoalsTd>
                 {dataValue(participant.data, 'goalsfor')}-{dataValue(participant.data, 'goalsagainst')}
               </GoalsTd>
-              <GoalsTd>
+              <GoalsTdAvg>
                 {Number(dataValue(participant.data, 'goalsfor')) - Number(dataValue(participant.data, 'goalsagainst'))}
-              </GoalsTd>
+              </GoalsTdAvg>
               <PoengTd>
                 <PointCircle>{dataValue(participant.data, 'points')}</PointCircle>
               </PoengTd>
@@ -155,6 +155,7 @@ const Table = styled.table`
 
   @media (min-width: 992px) {
     padding: 2rem;
+    font-size: 0.9rem;
   }
 `;
 
@@ -186,10 +187,20 @@ const GoalsTh = styled.th`
   }
 `;
 
+const GoalsThAvg = styled(GoalsTh)`
+  width: 35px;
+  min-width: 35px;
+`;
+
 const GoalsTd = styled(GoalsTh).attrs({
   as: 'td',
 })`
   text-align: center;
+`;
+
+const GoalsTdAvg = styled(GoalsTd)`
+  width: 35px;
+  min-width: 35px;
 `;
 
 const PoengTh = styled.th`

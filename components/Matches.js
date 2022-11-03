@@ -72,7 +72,7 @@ const MatchContainer = styled.div`
   width: 100%;
   margin-top: 2rem;
   overflow: auto;
-  max-height: 920px;
+  max-height: 937px;
 
   @media (min-width: 992px) {
     margin-top: 0rem;
@@ -95,6 +95,9 @@ const MatchContent = styled.div`
   font-size: 0.8rem;
   font-weight: bold;
   margin-bottom: 1rem;
+  @media (min-width: 992px) {
+    font-size: 0.9rem;
+  }
 `;
 
 const Team = styled.div`
