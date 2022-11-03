@@ -36,7 +36,8 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   body {
-    font-family: 'Inter', sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
     //10px (16px = 1.6rem) (18px = 1.8rem)
     font-size: 10px;
     overflow-y: scroll;
